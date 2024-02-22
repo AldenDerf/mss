@@ -33,6 +33,7 @@ class AuthenticatedSessionController extends Controller
     {
         // $request->authenticate();
 
+
         //Validate and attempt login based on 'employee_id'
         if (!Auth::attempt($request->only('employee_id', 'password'), $request->boolean('remember'))) {
             throw ValidationException::withMessages([
@@ -40,9 +41,14 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
 
+        //Fetch the authenticated user
+        $user = Auth::user();
+
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return Inertia::render('Dashbord')
+            ->with('user', $user)
+            ->to(RouteServiceProvider::HOME);
     }
 
     /**

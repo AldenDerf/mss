@@ -93,6 +93,15 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'hospital' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_HOST_HOSPITAL'),
+            'port' => env('DB_PORT_HOSPITAL'),
+            'database' => env('DB_DATABASE_HOSPITAL'),
+            'username' => env('DB_USERNAME_HOSPITAL'),
+            'password' => env('DB_PASSWORD_HOSPITAL'),
+        ],
+
     ],
 
     /*
