@@ -46,7 +46,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return Inertia::render('Dashbord')
+        return Inertia::render('Dashboard')
             ->with('user', $user)
             ->to(RouteServiceProvider::HOME);
     }
