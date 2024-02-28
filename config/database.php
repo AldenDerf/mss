@@ -96,7 +96,7 @@ return [
         'hospital' => [
             'driver' => 'sqlsrv',
             'host' => env('DB_HOST_HOSPITAL'),
-            'port' => env('DB_PORT_HOSPITAL', 'server3'), // Use default if not set
+            'port' => env('DB_PORT_HOSPITAL'), // Use default if not set
             'database' => env('DB_DATABASE_HOSPITAL'),
             'username' => env('DB_USERNAME_HOSPITAL'),
             'password' => env('DB_PASSWORD_HOSPITAL'),

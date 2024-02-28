@@ -44,4 +44,9 @@ class Patient extends Model
      * @var string[] (optional in this case)
      */
     protected $guarded = [];
+
+    protected $casts = [
+        'hpercode' => 'string',
+        
+    ];
 }
