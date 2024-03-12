@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/patients/search', [PatientSearchController::class, 'search'])->name('patients.search');
+Route::get('/patients/search', [PatientSearchController::class, 'search'])->name('patients.search')->middleware('auth');
 
 
 

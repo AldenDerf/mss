@@ -1,6 +1,14 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage, useRemember } from "@inertiajs/react";
 import React, { useState, useEffect } from "react";
+import MssLink from "@/Components/Dashboard/MssLink";
+import Link from '@mui/material/Link';
+
+
+// MUI
+import Container from '@mui/material/Container';
+import { Breadcrumbs } from "@mui/material";
+
 
 export default function Dashboard({ auth}) {
 
@@ -8,22 +16,20 @@ export default function Dashboard({ auth}) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
-                </h2>
+               <Breadcrumbs aria-label="breadcrumb">
+                     <Link underline="hover" color="inherit" href="/dashboard">
+                          Dashboard
+                     </Link>
+               </Breadcrumbs>
             }
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            You're logged in!
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* Links */}
+            <Container maxWidth="lg">
+                <MssLink />
+            </Container>
+
         </AuthenticatedLayout>
     );
 }

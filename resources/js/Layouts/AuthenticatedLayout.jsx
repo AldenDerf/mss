@@ -3,6 +3,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -22,17 +23,11 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <ResponsiveNavLink
+                                {/* <ResponsiveNavLink
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
                                 >
                                     Dashboard
-                                </ResponsiveNavLink>
-                                {/* <ResponsiveNavLink
-                                    href={route("patient_search")}
-                                    active={route().current("patient_search")}
-                                >
-                                    Patient Search
                                 </ResponsiveNavLink> */}
                             </div>
                         </div>
@@ -162,11 +157,11 @@ export default function Authenticated({ user, header, children }) {
                 </div>
             </nav>
 
-            
+
             {/* Header */}
             {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header className="">
+                    <div className="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
                         {header}
                     </div>
                 </header>

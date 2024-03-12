@@ -1,15 +1,45 @@
 import React, { useState } from "react";
-import * as MUI from "@mui/material";
 import { router } from "@inertiajs/react";
+
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
+// Search Patient Results
+import SearchPatientResults from "../../Components/SearchPatient/SearchPatientResults";
 
 // MUI Components
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import TextField from "@mui/material/TextField";
-import { DateField } from "@mui/x-date-picker/DateField";
+import Typography from "@mui/material/Typography";
 
-export default function SearchPatients({ patients, searchInputs }) {
+// Date Picker
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateField } from "@mui/x-date-pickers/DateField";
+import Stack from "@mui/material/Stack";
+
+// Buttons
+import Button from "@mui/material/Button";
+import SearchIcon from "@mui/icons-material/Search";
+
+//Containers
+import Box from "@mui/material/Box";
+
+export default function SearchPatients({ patients, searchInputs, auth }) {
+    // gridStyle
+    const gridStyle = {
+        border: "1px solid #000",
+    };
+
+    const boxStyle = {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+    };
     const [searchData, setSearchData] = useState(searchInputs);
 
     const handleChange = (event) => {
@@ -25,88 +55,87 @@ export default function SearchPatients({ patients, searchInputs }) {
     };
 
     return (
-        <>
+        <AuthenticatedLayout
+            user={auth.user}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Patient Search
+                </h2>
+            }
+        >
+            <Head title="Search" />
             <CssBaseline />
-            <Container maxWidth="md">
+            <Container maxWidth="md" my={2}>
                 <form onSubmit={handleSubmit}>
-                    <Grid container spacing={1}>
-                        <Grid xs={4}>
-                            <TextField
-                                label="Patient ID (hpercode)"
-                                name="hpercode"
-                                value={searchData.hpercode || ""}
-                                onChange={handleChange}
-                                margin="normal"
-                            />
-                        </Grid>
+                    <Stack direction="row" spacing={2}>
+                        {/* Patient ID Field */}
+                        <TextField
+                            label="Patient ID (hpercode)"
+                            name="hpercode"
+                            value={searchData.hpercode || ""}
+                            onChange={handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            style={{ marginRight: "10px" }}
+                        />
 
-                        <Grid xs={4} >
-                            <TextField
-                                label="First Name"
-                                name="patfirst"
-                                value={searchData.patfirst || ""}
-                                onChange={handleChange}
-                                margin="normal"
-                            />
-                        </Grid>
+                        {/* Firs name field */}
+                        <TextField
+                            label="First Name"
+                            name="patfirst"
+                            value={searchData.patfirst || ""}
+                            onChange={handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            style={{ marginRight: "10px" }}
+                        />
 
-                        <Grid xs={4}>
-                            <TextField
-                                label="Last Name"
-                                name="patlast"
-                                value={searchData.patlast || ""}
-                                oChange={handleChange}
-                                margin="normal"
-                            />
-                        </Grid>
-
-                        <Grid xs={46}>
-
-                        </Grid>
-                    </Grid>
+                        {/* Last name field */}
+                        <TextField
+                            label="Last Name"
+                            name="patlast"
+                            value={searchData.patlast || ""}
+                            onChange={handleChange}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            startIcon={<SearchIcon />}
+                        >
+                            Search
+                        </Button>
+                    </Stack>
                 </form>
             </Container>
-        </>
 
-        // <div>
-        //     <form onSubmit={handleSubmit}>
-        //         {/* MUI Input fields for hpercode, patfirst, patlast,  patdob*/}
-        //         <MUI.TextField
-        //             label="Patient ID (hpercode)"
-        //             name="hpercode"
-        //             value={searchData.hpercode || ""}
-        //             onChange={handleChange}
-        //             margin="normal"
-        //         />
-        //         {/* ... other input fields similarly */}
-        //         <MUI.Button type="submit" variant="contained">
-        //             Search
-        //         </MUI.Button>
-        //     </form>
+            <Box component="section" textAlign="center" my={2}>
+                <Typography variant="h4">Result</Typography>
+            </Box>
 
-        //     <MUI.TableContainer component={MUI.Paper}>
-        //         <MUI.Table>
-        //             <MUI.TableHead>
-        //                 <MUI.TableRow>
-        //                     <MUI.TableCell>Patient ID</MUI.TableCell>
-        //                     <MUI.TableCell>First Name</MUI.TableCell>
-        //                     <MUI.TableCell>Last Name</MUI.TableCell>
-        //                     <MUI.TableCell>Date of Birth</MUI.TableCell>
-        //                 </MUI.TableRow>
-        //             </MUI.TableHead>
-
-        //             <MUI.TableBody>
-        //                 {patients.data.map((patient) => (
-        //                     <MUI.TableRow key={patient.hpercode}>
-        //                         <MUI.TableCell>{patient.hpercode}</MUI.TableCell>
-        //                         <MUI.TableCell>{patient.patfirst}</MUI.TableCell>
-        //                         <MUI.TableCell>{patient.patlast}</MUI.TableCell>
-        //                         <MUI.TableCell>{patient.patdob}</MUI.TableCell>
-        //                     </MUI.TableRow>
-        //                 ))}
-        //             </MUI.TableBody>
-        //         </MUI.Table>
-        //     </MUI.TableContainer>
-        // </div>
+            {/* Patien Results */}
+            <Container
+                maxWidth="md"
+                sx={{
+                    maxHeight: "500px",
+                    maxWidth: "500px",
+                    overflow: "auto",
+                    overflowX: "auto",
+                }}
+            >
+                {patients.data.length > 0 ? (
+                    patients.data.map((patient) => (
+                        <SearchPatientResults
+                            key={patient.hpercode}
+                            patient={patient}
+                        />
+                    ))
+                ) : (
+                    <h1>No Patients Found</h1>
+                )}
+            </Container>
+        </AuthenticatedLayout>
     );
 }
