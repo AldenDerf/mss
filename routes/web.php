@@ -37,7 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/reports', function () {
+    return Inertia::render('Reports/Index');
+})->middleware('auth');
+
+
 Route::get('/patients/search', [PatientSearchController::class, 'search'])->name('patients.search')->middleware('auth');
+
 
 
 

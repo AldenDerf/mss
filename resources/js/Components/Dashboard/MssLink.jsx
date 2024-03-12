@@ -16,7 +16,7 @@ function MssLink() {
         <Stack spacing={2} direction="row">
             {/* Reports */}
             <Link
-                href="/mss"
+                href="/reports"
                 color="inherit"
                 underline="none"
                 display="flex"
