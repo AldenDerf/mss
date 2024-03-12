@@ -29,10 +29,8 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
-        // $request->authenticate();
-
 
         //Validate and attempt login based on 'employee_id'
         if (!Auth::attempt($request->only('employee_id', 'password'), $request->boolean('remember'))) {
@@ -46,9 +44,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return Inertia::render('Dashbord')
-            ->with('user', $user)
-            ->to(RouteServiceProvider::HOME);
+        //Conditional Redirect + Inertia Response
+        if ($request->wantsJson()) {
+            return Inertia::render('Dashboard')
+                ->with('user', $user)
+                ->with('success', true);// Example: add a 'success' prop
+
+        }else {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
     }
 
     /**

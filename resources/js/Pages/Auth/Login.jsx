@@ -50,8 +50,6 @@ export default function Login({ status, canResetPassword }) {
                         isFocused={true}
                         onChange={(e) => setData("employee_id", e.target.value)}
                     />
-
-                    <InputError message={errors.employee_id} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -67,6 +65,7 @@ export default function Login({ status, canResetPassword }) {
                         onChange={(e) => setData("password", e.target.value)}
                     />
 
+                    <InputError message={errors.employee_id} className="mt-2" />
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
