@@ -6,9 +6,10 @@
         "route" : "/report1"
     },
     {
-        "id": 1,
-        "reportName" : "Medical Assisstance to Indigent and Financially Incapaciated Patient Program Fund Utilization Report",
-        "tooltip" : "Medical Assisstance to Indigent and Financially Incapaciated Patient Program Fund Utilization Report",
+        "id": 2,
+        "reportName" : "zebra",
+        "tooltip" : "report",
         "route" : "/report1"
     }
 ]
+

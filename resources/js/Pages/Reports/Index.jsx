@@ -10,11 +10,22 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
+import reports from "@/LocalAPI/Reports/reports.json";
 
 import Typography from "@mui/material/Typography";
 
 export default function Reports({ auth }) {
+    const [searchTerm, setSearchTerm] = React.useState("");
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredReports = reports.filter((report) =>
+        report.reportName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    console.log(filteredReports);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -40,7 +51,8 @@ export default function Reports({ auth }) {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        width: 400,
+                        width: "100%",
+                        maxWidth: 400,
                         mb: 4,
                     }}
                 >
@@ -56,10 +68,12 @@ export default function Reports({ auth }) {
                         }}
                         placeholder="Search Report"
                         inputProps={{ "aria-label": "search" }}
+                        onChange={handleSearchChange}
+                        value={searchTerm}
                     />
                 </Paper>
 
-                <ReportsLinks />
+                <ReportsLinks reports={filteredReports}/>
             </Container>
         </AuthenticatedLayout>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import reports from '@/LocalAPI/Reports/reports.json';
+
 
 // MUI
 import Stack from "@mui/material/Stack";
@@ -10,6 +10,8 @@ import  Typography  from '@mui/material/Typography';
 import  Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 
 
 
@@ -25,16 +27,23 @@ const LightTooltip = styled(({ className, ...props}) => (
     }
 }));
 
-export default function ReportsLinks() {
+export default function ReportsLinks( {reports}) {
 
     const style = {
         width: '100%',
     }
     return (
-        <Stack direction="column" spacing={2}>
-            {reports.map((report) => (
-                <List key={report.id}>
-                    <ListItem>
+        <Stack direction="column" spacing={1}>
+            {reports.length > 0 ? (
+                reports.map((report) => (
+                    <Paper
+                        sx={{
+                            p: 2,
+                            display: "flex",
+                            alignItems: "center",
+                            width: "100%",
+                        }}
+                    >
                         <Link href="#" underline="hover">
                             <LightTooltip
                                 title={report.tooltip}
@@ -50,10 +59,23 @@ export default function ReportsLinks() {
                                 </Typography>
                             </LightTooltip>
                         </Link>
-                    </ListItem>
-                    <Divider variant="middle" />
-                </List>
-            ))}
+                    </Paper>
+                ))
+            ) : (
+                <Box
+                    sx={{
+                        p: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "100%",
+                    }}
+                >
+                    <Typography variant="body1" color="textSecondary">
+                        No result found!
+                    </Typography>
+                </Box>
+            )}
         </Stack>
     );
 }
